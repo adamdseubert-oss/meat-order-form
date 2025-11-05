@@ -1,91 +1,305 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww29200\viewh16120\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meat Order Form</title>
+    <style>
+        /* === FULL CSS STYLING === */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        h2 {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px;
+            margin: 30px 0 15px;
+            border-radius: 6px;
+            font-size: 1.4em;
+        }
+        h3 {
+            margin: 20px 0 10px;
+            color: #555;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            font-size: 1.2em;
+        }
+        .customer-info {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 35px;
+        }
+        .customer-info label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+        .customer-info input,
+        .customer-info textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .customer-info input:focus,
+        .customer-info textarea:focus {
+            outline: none;
+            border-color: #27ae60;
+            box-shadow: 0 0 5px rgba(39,174,96,0.3);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            color: #444;
+        }
+        input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .flavor-group {
+            margin-left: 20px;
+            margin-top: 10px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+        .flavor-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .flavor-item label {
+            flex: 1;
+            min-width: 180px;
+            font-weight: 500;
+            color: #555;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #e8f5e9 !important;
+            font-size: 1.1em;
+        }
+        .submit-btn {
+            display: block;
+            width: 240px;
+            margin: 40px auto;
+            padding: 14px;
+            font-size: 18px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #219653;
+        }
+        .submit-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        #submitMessage {
+            text-align: center;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: bold;
+            display: none;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .note {
+            text-align: center;
+            font-style: italic;
+            color: #777;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            input[type="number"] { width: 60px; }
+            .flavor-item { flex-direction: column; align-items: flex-start; }
+            .flavor-item label { margin-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
 
-\f0\fs24 \cf0 <!DOCTYPE html>\
-<html lang="en">\
-<head>\
-    <meta charset="UTF-8">\
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <title>Meat Order Form</title>\
-    <style>\
-        /* === FULL CSS STYLING === */\
-        body \{\
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\
-            line-height: 1.6;\
-            max-width: 900px;\
-            margin: 20px auto;\
-            padding: 20px;\
-            background-color: #f9f9f9;\
-            color: #333;\
-        \}\
-        h1 \{\
-            text-align: center;\
-            color: #444;\
-            border-bottom: 2px solid #ddd;\
-            padding-bottom: 10px;\
-            font-size: 2.2em;\
-        \}\
-        h2 \{\
-            background-color: #e74c3c;\
-            color: white;\
-            padding: 12px;\
-            margin: 30px 0 15px;\
-            border-radius: 6px;\
-            font-size: 1.4em;\
-        \}\
-        h3 \{\
-            margin: 20px 0 10px;\
-            color: #555;\
-            border-bottom: 1px solid #eee;\
-            padding-bottom: 5px;\
-            font-size: 1.2em;\
-        \}\
-        .customer-info \{\
-            background-color: #fff;\
-            padding: 25px;\
-            border-radius: 10px;\
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);\
-            margin-bottom: 35px;\
-        \}\
-        .customer-info label \{\
-            display: block;\
-            margin-bottom: 8px;\
-            font-weight: bold;\
-            color: #444;\
-        \}\
-        .customer-info input,\
-        .customer-info textarea \{\
-            width: 100%;\
-            padding: 12px;\
-            margin-bottom: 18px;\
-            border: 1px solid #ccc;\
-            border-radius: 6px;\
-            font-size: 16px;\
-            box-sizing: border-box;\
-        \}\
-        .customer-info input:focus,\
-        .customer-info textarea:focus \{\
-            outline: none;\
-            border-color: #27ae60;\
-            box-shadow: 0 0 5px rgba(39,174,96,0.3);\
-        \}\
-        table \{\
-            width: 100%;\
-            border-collapse: collapse;\
-            margin-bottom: 25px;\
-            background-color: #fff;\
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);\
-        \}\
-        th, td \{\
-            border: 1px solid #ddd;\
-            padding: 12px;\
-            text-align: left;\
-        \}\
-        th \{\
-            background-color: #f2f2f2;\
-            font-weight: 600;\
-            color: #}
+    <h1>Meat Order Form</h1>
+
+    <form id="meatOrderForm">
+        <!-- UPDATE THESE TWO LINES -->
+        <input type="hidden" name="SHEET_ID" value="YOUR_SHEET_ID_HERE">
+
+        <!-- CUSTOMER INFO -->
+        <div class="customer-info">
+            <h2>Customer Information</h2>
+            <label>Full Name *</label>
+            <input type="text" name="customer_name" required placeholder="John Doe">
+
+            <label>Email *</label>
+            <input type="email" name="customer_email" required placeholder="john@example.com">
+
+            <label>Phone *</label>
+            <input type="tel" name="customer_phone" required placeholder="(555) 123-4567">
+
+            <label>Delivery / Pickup Address (Optional)</label>
+            <input type="text" name="customer_address" placeholder="123 Main St, City, State">
+
+            <label>Special Requests / Notes</label>
+            <textarea name="customer_notes" rows="3" placeholder="e.g., Prefer thicker cuts, no MSG"></textarea>
+        </div>
+
+        <!-- BEEF SECTION -->
+        <h2>BEEF</h2>
+        <table>
+            <thead>
+                <tr><th>Item</th><th>Pack Size</th><th>Quantity</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Ribeye</td><td>1 lb each</td><td><input type="number" min="0" value="0" name="beef_ribeye"></td></tr>
+                <tr><td>New York Strip</td><td>1 lb each</td><td><input type="number" min="0" value="0" name="beef_ny_strip"></td></tr>
+                <tr><td>Tenderloins</td><td>0.5 lb each</td><td><input type="number" min="0" value="0" name="beef_tenderloin"></td></tr>
+                <tr><td>Chuck Roast</td><td>3 lb</td><td><input type="number" min="0" value="0" name="beef_chuck_roast"></td></tr>
+                <tr><td>Burger</td><td>1 lb</td><td><input type="number" min="0" value="0" name="beef_burger"></td></tr>
+                <tr><td>Skirt Steak</td><td>1 lb</td><td><input type="number" min="0" value="0" name="beef_skirt"></td></tr>
+                <tr><td>Flank Steak</td><td>1 lb</td><td><input type="number" min="0" value="0" name="beef_flank"></td></tr>
+                <tr><td>Tri Tip</td><td>3 lb</td><td><input type="number" min="0" value="0" name="beef_tri_tip"></td></tr>
+                <tr><td>Top Sirloin</td><td>1 lb</td><td><input type="number" min="0" value="0" name="beef_top_sirloin"></td></tr>
+                <tr><td>Short Rib</td><td>2 pieces</td><td><input type="number" min="0" value="0" name="beef_short_rib"></td></tr>
+                <tr><td>Stew Meat</td><td>1 lb</td><td><input type="number" min="0" value="0" name="beef_stew"></td></tr>
+                <tr><td>Soup Meat</td><td>1 lb</td><td><input type="number" min="0" value="0" name="beef_soup"></td></tr>
+                <tr><td>Brisket</td><td>10–12 lb</td><td><input type="number" min="0" value="0" name="beef_brisket"></td></tr>
+            </tbody>
+        </table>
+
+        <!-- JERKY, STICKS, HOT DOGS, SAUSAGE -->
+        <h3>Jerky (0.5 lb package)</h3>
+        <div class="flavor-group">
+            <div class="flavor-item"><label>Regular</label><input type="number" min="0" value="0" name="beef_jerky_regular"></div>
+            <div class="flavor-item"><label>Black Pepper (BP)</label><input type="number" min="0" value="0" name="beef_jerky_bp"></div>
+            <div class="flavor-item"><label>Sweet Teriyaki</label><input type="number" min="0" value="0" name="beef_jerky_sweet_ter"></div>
+            <div class="flavor-item"><label>Buffalo Chicken</label><input type="number" min="0" value="0" name="beef_jerky_buffalo"></div>
+            <div class="flavor-item"><label>Pork Jerky</label><input type="number" min="0" value="0" name="beef_jerky_pork"></div>
+        </div>
+
+        <!-- (Add other beef items like sticks, hot dogs, etc. — same format) -->
+
+        <!-- PORK SECTION (same structure) -->
+        <h2>PORK</h2>
+        <table>
+            <thead><tr><th>Item</th><th>Pack Size</th><th>Quantity</th></tr></thead>
+            <tbody>
+                <tr><td>Chops</td><td>1 lb</td><td><input type="number" min="0" value="0" name="pork_chops"></td></tr>
+                <tr><td>Sausage</td><td>1 lb</td><td><input type="number" min="0" value="0" name="pork_sausage"></td></tr>
+                <!-- Add all pork items -->
+            </tbody>
+        </table>
+
+        <!-- TOTALS -->
+        <table>
+            <tbody>
+                <tr class="total-row"><td colspan="2">Total Beef</td><td id="totalBeef">0 lb</td></tr>
+                <tr class="total-row"><td colspan="2">Total Pork</td><td id="totalPork">0 lb</td></tr>
+            </tbody>
+        </table>
+
+        <button type="button" class="submit-btn" id="submitBtn" onclick="submitOrder()">Calculate & Submit Order</button>
+        <div id="submitMessage"></div>
+        <p class="note">Your order will be saved to Google Sheets. You'll see a confirmation below.</p>
+    </form>
+
+    <script>
+        // UPDATE THIS URL
+        const WEB_APP_URL = 'YOUR_EXEC_URL_HERE';
+
+        function submitOrder() {
+            const name = document.querySelector('[name="customer_name"]').value.trim();
+            const email = document.querySelector('[name="customer_email"]').value.trim();
+            const phone = document.querySelector('[name="customer_phone"]').value.trim();
+
+            if (!name || !email || !phone) {
+                showMessage('Please fill in Name, Email, and Phone.', 'error');
+                return;
+            }
+
+            // Calculate totals (same logic as before)
+            let totalBeef = 0;
+            totalBeef += parseInt(document.querySelector('[name="beef_ribeye"]').value || 0) * 1;
+            // ... add all other calculations ...
+
+            document.getElementById('totalBeef').textContent = totalBeef.toFixed(1) + ' lb';
+
+            // Submit to Google Sheets
+            const formData = new FormData(document.getElementById('meatOrderForm'));
+            formData.append('total_beef', totalBeef.toFixed(1));
+            formData.append('total_pork', 0); // Add pork calc
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            fetch(WEB_APP_URL, { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        showMessage(`Order submitted! Row ${data.row}`, 'success');
+                        document.getElementById('meatOrderForm').reset();
+                    } else {
+                        showMessage('Error: ' + data.error, 'error');
+                    }
+                })
+                .catch(() => showMessage('Network error. Try again.', 'error'))
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.textContent = 'Calculate & Submit Order';
+                });
+        }
+
+        function showMessage(msg, type) {
+            const div = document.getElementById('submitMessage');
+            div.textContent = msg;
+            div.className = type;
+            div.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

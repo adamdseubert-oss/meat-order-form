@@ -12,8 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\
     <title>Meat Order Form</title>\
     <style>\
+        /* === FULL CSS STYLING === */\
         body \{\
-            font-family: Arial, sans-serif;\
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\
             line-height: 1.6;\
             max-width: 900px;\
             margin: 20px auto;\
@@ -26,574 +27,65 @@
             color: #444;\
             border-bottom: 2px solid #ddd;\
             padding-bottom: 10px;\
+            font-size: 2.2em;\
         \}\
         h2 \{\
             background-color: #e74c3c;\
             color: white;\
-            padding: 10px;\
-            margin-top: 25px;\
-            border-radius: 5px;\
+            padding: 12px;\
+            margin: 30px 0 15px;\
+            border-radius: 6px;\
+            font-size: 1.4em;\
         \}\
         h3 \{\
-            margin-top: 15px;\
+            margin: 20px 0 10px;\
             color: #555;\
             border-bottom: 1px solid #eee;\
             padding-bottom: 5px;\
+            font-size: 1.2em;\
         \}\
         .customer-info \{\
             background-color: #fff;\
-            padding: 20px;\
-            border-radius: 8px;\
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);\
-            margin-bottom: 30px;\
+            padding: 25px;\
+            border-radius: 10px;\
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);\
+            margin-bottom: 35px;\
         \}\
         .customer-info label \{\
             display: block;\
             margin-bottom: 8px;\
             font-weight: bold;\
+            color: #444;\
         \}\
-        .customer-info input, .customer-info textarea \{\
+        .customer-info input,\
+        .customer-info textarea \{\
             width: 100%;\
-            padding: 10px;\
-            margin-bottom: 15px;\
+            padding: 12px;\
+            margin-bottom: 18px;\
             border: 1px solid #ccc;\
-            border-radius: 4px;\
+            border-radius: 6px;\
             font-size: 16px;\
+            box-sizing: border-box;\
+        \}\
+        .customer-info input:focus,\
+        .customer-info textarea:focus \{\
+            outline: none;\
+            border-color: #27ae60;\
+            box-shadow: 0 0 5px rgba(39,174,96,0.3);\
         \}\
         table \{\
             width: 100%;\
             border-collapse: collapse;\
-            margin-bottom: 20px;\
+            margin-bottom: 25px;\
+            background-color: #fff;\
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);\
         \}\
         th, td \{\
             border: 1px solid #ddd;\
-            padding: 10px;\
+            padding: 12px;\
             text-align: left;\
         \}\
         th \{\
             background-color: #f2f2f2;\
-        \}\
-        input[type="number"], select \{\
-            width: 80px;\
-            padding: 5px;\
-            border: 1px solid #ccc;\
-            border-radius: 4px;\
-        \}\
-        .flavor-group \{\
-            margin-left: 20px;\
-            margin-top: 8px;\
-        \}\
-        .flavor-item \{\
-            display: flex;\
-            align-items: center;\
-            margin-bottom: 5px;\
-        \}\
-        .flavor-item label \{\
-            flex: 1;\
-            min-width: 180px;\
-        \}\
-        .total-row \{\
-            font-weight: bold;\
-            background-color: #f2f2f2;\
-        \}\
-        .submit-btn \{\
-            display: block;\
-            width: 200px;\
-            margin: 30px auto;\
-            padding: 12px;\
-            font-size: 16px;\
-            background-color: #27ae60;\
-            color: white;\
-            border: none;\
-            border-radius: 5px;\
-            cursor: pointer;\
-        \}\
-        .submit-btn:hover \{\
-            background-color: #219653;\
-        \}\
-        .submit-btn:disabled \{\
-            background-color: #ccc;\
-            cursor: not-allowed;\
-        \}\
-        .note \{\
-            font-style: italic;\
-            color: #777;\
-            margin-top: 10px;\
-            font-size: 0.9em;\
-            text-align: center;\
-        \}\
-        #submitMessage \{\
-            text-align: center;\
-            margin-top: 20px;\
-            padding: 10px;\
-            border-radius: 5px;\
-            display: none;\
-        \}\
-        .success \{ background-color: #d4edda; color: #155724; \}\
-        .error \{ background-color: #f8d7da; color: #721c24; \}\
-        @media (max-width: 600px) \{\
-            .customer-info input, .customer-info textarea \{\
-                font-size: 14px;\
-            \}\
-            input[type="number"], select \{\
-                width: 60px;\
-            \}\
-        \}\
-    </style>\
-</head>\
-<body>\
-\
-    <h1>Meat Order Form</h1>\
-\
-    <form id="meatOrderForm" method="POST">\
-\
-        <!-- Paste your SHEET_ID here -->\
-        <input type="hidden" name="SHEET_ID" value="1yFyGnadnN7HMY_XO2EZ5jy4gujvzA9aCTeOkvVnAuLg">\
-\
-        <!-- CUSTOMER CONTACT INFO -->\
-        <div class="customer-info">\
-            <h2>Customer Information</h2>\
-            <label for="customer_name">Full Name *</label>\
-            <input type="text" id="customer_name" name="customer_name" required placeholder="John Doe">\
-\
-            <label for="customer_email">Email *</label>\
-            <input type="email" id="customer_email" name="customer_email" required placeholder="john@example.com">\
-\
-            <label for="customer_phone">Phone *</label>\
-            <input type="tel" id="customer_phone" name="customer_phone" required placeholder="(555) 123-4567">\
-\
-            <label for="customer_address">Delivery / Pickup Address (Optional)</label>\
-            <input type="text" id="customer_address" name="customer_address" placeholder="123 Main St, City, State">\
-\
-            <label for="customer_notes">Special Requests / Notes</label>\
-            <textarea id="customer_notes" name="customer_notes" rows="3" placeholder="e.g., Prefer thicker cuts, no MSG, etc."></textarea>\
-        </div>\
-\
-        <!-- BEEF SECTION -->\
-        <h2>BEEF</h2>\
-\
-        <table>\
-            <thead>\
-                <tr>\
-                    <th>Item</th>\
-                    <th>Pack Size</th>\
-                    <th>Quantity</th>\
-                </tr>\
-            </thead>\
-            <tbody>\
-                <tr>\
-                    <td>Ribeye</td>\
-                    <td>1 lb each</td>\
-                    <td><input type="number" min="0" value="0" name="beef_ribeye"></td>\
-                </tr>\
-                <tr>\
-                    <td>New York Strip</td>\
-                    <td>1 lb each</td>\
-                    <td><input type="number" min="0" value="0" name="beef_ny_strip"></td>\
-                </tr>\
-                <tr>\
-                    <td>Tenderloins</td>\
-                    <td>0.5 lb each</td>\
-                    <td><input type="number" min="0" value="0" name="beef_tenderloin"></td>\
-                </tr>\
-                <tr>\
-                    <td>Chuck Roast</td>\
-                    <td>3 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_chuck_roast"></td>\
-                </tr>\
-                <tr>\
-                    <td>Burger</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_burger"></td>\
-                </tr>\
-                <tr>\
-                    <td>Skirt Steak</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_skirt"></td>\
-                </tr>\
-                <tr>\
-                    <td>Flank Steak</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_flank"></td>\
-                </tr>\
-                <tr>\
-                    <td>Tri Tip</td>\
-                    <td>3 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_tri_tip"></td>\
-                </tr>\
-                <tr>\
-                    <td>Top Sirloin</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_top_sirloin"></td>\
-                </tr>\
-                <tr>\
-                    <td>Short Rib</td>\
-                    <td>2 pieces</td>\
-                    <td><input type="number" min="0" value="0" name="beef_short_rib"></td>\
-                </tr>\
-                <tr>\
-                    <td>Stew Meat</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_stew"></td>\
-                </tr>\
-                <tr>\
-                    <td>Soup Meat</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_soup"></td>\
-                </tr>\
-                <tr>\
-                    <td>Brisket</td>\
-                    <td>10\'9612 lb</td>\
-                    <td><input type="number" min="0" value="0" name="beef_brisket"></td>\
-                </tr>\
-            </tbody>\
-        </table>\
-\
-        <h3>Jerky (0.5 lb package)</h3>\
-        <div class="flavor-group">\
-            <div class="flavor-item">\
-                <label>Regular</label>\
-                <input type="number" min="0" value="0" name="beef_jerky_regular">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Black Pepper (BP)</label>\
-                <input type="number" min="0" value="0" name="beef_jerky_bp">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Sweet Teriyaki</label>\
-                <input type="number" min="0" value="0" name="beef_jerky_sweet_ter">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Buffalo Chicken</label>\
-                <input type="number" min="0" value="0" name="beef_jerky_buffalo">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Pork Jerky</label>\
-                <input type="number" min="0" value="0" name="beef_jerky_pork">\
-            </div>\
-        </div>\
-\
-        <h3>Beef Sticks (1 lb)</h3>\
-        <div class="flavor-group">\
-            <div class="flavor-item">\
-                <label>Regular</label>\
-                <input type="number" min="0" value="0" name="beef_sticks_regular">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Habanero (Hab)</label>\
-                <input type="number" min="0" value="0" name="beef_sticks_hab">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Habanero w/ Cheese</label>\
-                <input type="number" min="0" value="0" name="beef_sticks_hab_cheese">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Sweet Teriyaki</label>\
-                <input type="number" min="0" value="0" name="beef_sticks_sweet_ter">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Smoked Honey Mustard (SHM)</label>\
-                <input type="number" min="0" value="0" name="beef_sticks_shm">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Cheese</label>\
-                <input type="number" min="0" value="0" name="beef_sticks_cheese">\
-            </div>\
-        </div>\
-\
-        <h3>Hot Dogs (1 lb)</h3>\
-        <div class="flavor-group">\
-            <div class="flavor-item">\
-                <label>Regular</label>\
-                <input type="number" min="0" value="0" name="hot_dogs_regular">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Cheddar</label>\
-                <input type="number" min="0" value="0" name="hot_dogs_cheddar">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Cheddar Chili</label>\
-                <input type="number" min="0" value="0" name="hot_dogs_cheddar_chili">\
-            </div>\
-        </div>\
-\
-        <h3>Summer Sausage (1 lb)</h3>\
-        <div class="flavor-group">\
-            <div class="flavor-item">\
-                <label>Regular</label>\
-                <input type="number" min="0" value="0" name="summer_sausage_regular">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Jalape\'f1o</label>\
-                <input type="number" min="0" value="0" name="summer_sausage_jal">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Cheddar</label>\
-                <input type="number" min="0" value="0" name="summer_sausage_cheddar">\
-            </div>\
-        </div>\
-\
-        <table>\
-            <tbody>\
-                <tr class="total-row">\
-                    <td colspan="2">Total Beef (lbs or packages)</td>\
-                    <td id="totalBeef">0</td>\
-                </tr>\
-            </tbody>\
-        </table>\
-\
-        <!-- PORK SECTION -->\
-        <h2>PORK</h2>\
-\
-        <table>\
-            <thead>\
-                <tr>\
-                    <th>Item</th>\
-                    <th>Pack Size</th>\
-                    <th>Quantity</th>\
-                </tr>\
-            </thead>\
-            <tbody>\
-                <tr>\
-                    <td>Chops</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_chops"></td>\
-                </tr>\
-                <tr>\
-                    <td>Sausage</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_sausage"></td>\
-                </tr>\
-                <tr>\
-                    <td>Links</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_links"></td>\
-                </tr>\
-                <tr>\
-                    <td>Italian Sausage</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_italian"></td>\
-                </tr>\
-                <tr>\
-                    <td>Brats</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_brats"></td>\
-                </tr>\
-                <tr>\
-                    <td>Ribs</td>\
-                    <td>3 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_ribs"></td>\
-                </tr>\
-                <tr>\
-                    <td>Shoulder Roast</td>\
-                    <td>3 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_shoulder"></td>\
-                </tr>\
-                <tr>\
-                    <td>Pork Butt</td>\
-                    <td>4 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_butt"></td>\
-                </tr>\
-                <tr>\
-                    <td>Steaks</td>\
-                    <td>1 lb</td>\
-                    <td><input type="number" min="0" value="0" name="pork_steaks"></td>\
-                </tr>\
-                <tr>\
-                    <td>Pork Tenderloins</td>\
-                    <td>~1 lb each</td>\
-                    <td><input type="number" min="0" value="0" name="pork_tenderloins"></td>\
-                </tr>\
-            </tbody>\
-        </table>\
-\
-        <h3>Links Flavored (1 lb)</h3>\
-        <div class="flavor-group">\
-            <div class="flavor-item">\
-                <label>Regular</label>\
-                <input type="number" min="0" value="0" name="pork_links_regular">\
-            </div>\
-        </div>\
-\
-        <h3>Brats Flavored (1 lb)</h3>\
-        <div class="flavor-group">\
-            <div class="flavor-item">\
-                <label>Jalape\'f1o Cheddar</label>\
-                <input type="number" min="0" value="0" name="pork_brats_jal_cheddar">\
-            </div>\
-        </div>\
-\
-        <h3>Bacon (1 lb)</h3>\
-        <div class="flavor-group">\
-            <div class="flavor-item">\
-                <label>Regular</label>\
-                <input type="number" min="0" value="0" name="pork_bacon_regular">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Apple Cinnamon</label>\
-                <input type="number" min="0" value="0" name="pork_bacon_apple_cinnamon">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Raspberry Chipotle</label>\
-                <input type="number" min="0" value="0" name="pork_bacon_raspberry_chipotle">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Bourbon Pepper</label>\
-                <input type="number" min="0" value="0" name="pork_bacon_bourbon_pepper">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Cajun</label>\
-                <input type="number" min="0" value="0" name="pork_bacon_cajun">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Sweet Honey Brown Sugar</label>\
-                <input type="number" min="0" value="0" name="pork_bacon_honey_brown">\
-            </div>\
-            <div class="flavor-item">\
-                <label>Black Pepper</label>\
-                <input type="number" min="0" value="0" name="pork_bacon_black_pepper">\
-            </div>\
-        </div>\
-\
-        <table>\
-            <tbody>\
-                <tr class="total-row">\
-                    <td colspan="2">Total Pork (lbs or packages)</td>\
-                    <td id="totalPork">0</td>\
-                </tr>\
-            </tbody>\
-        </table>\
-\
-        <button type="button" class="submit-btn" id="submitBtn" onclick="submitOrder()">Calculate & Submit Order</button>\
-        <div id="submitMessage"></div>\
-        <p class="note">Submissions are saved to Google Sheets. You'll get a confirmation below.</p>\
-    </form>\
-\
-    <script>\
-        // Paste your WEB_APP_URL here\
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxV2JYKusA8_NTqhXxI21WXIjZZdfT-I3GBI7aSwoI8kUWopuiyYrn5YCc9A27daFd9dA/exec';  // e.g., https://script.google.com/macros/s/[ID]/exec\
-        const SHEET_ID = '1yFyGnadnN7HMY_XO2EZ5jy4gujvzA9aCTeOkvVnAuLg';  // Already in hidden input, but for reference\
-\
-        function submitOrder() \{\
-            // Validate required fields\
-            const name = document.getElementById('customer_name').value.trim();\
-            const email = document.getElementById('customer_email').value.trim();\
-            const phone = document.getElementById('customer_phone').value.trim();\
-\
-            if (!name || !email || !phone) \{\
-                showMessage('Please fill in your Name, Email, and Phone before submitting.', 'error');\
-                return;\
-            \}\
-\
-            // Calculate totals\
-            let totalBeef = 0;\
-            let totalPork = 0;\
-\
-            // Beef calculations (same as before)\
-            totalBeef += parseInt(document.querySelector('[name="beef_ribeye"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_ny_strip"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_tenderloin"]').value || 0) * 0.5;\
-            totalBeef += parseInt(document.querySelector('[name="beef_chuck_roast"]').value || 0) * 3;\
-            totalBeef += parseInt(document.querySelector('[name="beef_burger"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_skirt"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_flank"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_tri_tip"]').value || 0) * 3;\
-            totalBeef += parseInt(document.querySelector('[name="beef_top_sirloin"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_short_rib"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_stew"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_soup"]').value || 0) * 1;\
-            totalBeef += parseInt(document.querySelector('[name="beef_brisket"]').value || 0) * 11;\
-\
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_regular"]').value || 0) * 0.5);\
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_bp"]').value || 0) * 0.5);\
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_sweet_ter"]').value || 0) * 0.5);\
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_buffalo"]').value || 0) * 0.5);\
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_pork"]').value || 0) * 0.5);\
-\
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_regular"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_hab"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_hab_cheese"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_sweet_ter"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_shm"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_cheese"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="hot_dogs_regular"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="hot_dogs_cheddar"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="hot_dogs_cheddar_chili"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="summer_sausage_regular"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="summer_sausage_jal"]').value || 0);\
-            totalBeef += parseInt(document.querySelector('[name="summer_sausage_cheddar"]').value || 0);\
-\
-            // Pork calculations\
-            totalPork += parseInt(document.querySelector('[name="pork_chops"]').value || 0) * 1;\
-            totalPork += parseInt(document.querySelector('[name="pork_sausage"]').value || 0) * 1;\
-            totalPork += parseInt(document.querySelector('[name="pork_links"]').value || 0) * 1;\
-            totalPork += parseInt(document.querySelector('[name="pork_italian"]').value || 0) * 1;\
-            totalPork += parseInt(document.querySelector('[name="pork_brats"]').value || 0) * 1;\
-            totalPork += parseInt(document.querySelector('[name="pork_ribs"]').value || 0) * 3;\
-            totalPork += parseInt(document.querySelector('[name="pork_shoulder"]').value || 0) * 3;\
-            totalPork += parseInt(document.querySelector('[name="pork_butt"]').value || 0) * 4;\
-            totalPork += parseInt(document.querySelector('[name="pork_steaks"]').value || 0) * 1;\
-            totalPork += parseInt(document.querySelector('[name="pork_tenderloins"]').value || 0) * 1;\
-\
-            totalPork += parseInt(document.querySelector('[name="pork_links_regular"]').value || 0);\
-            totalPork += parseInt(document.querySelector('[name="pork_brats_jal_cheddar"]').value || 0);\
-\
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_regular"]').value || 0);\
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_apple_cinnamon"]').value || 0);\
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_raspberry_chipotle"]').value || 0);\
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_bourbon_pepper"]').value || 0);\
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_cajun"]').value || 0);\
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_honey_brown"]').value || 0);\
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_black_pepper"]').value || 0);\
-\
-            // Update display\
-            document.getElementById('totalBeef').textContent = totalBeef.toFixed(1) + ' lb';\
-            document.getElementById('totalPork').textContent = totalPork.toFixed(1) + ' lb';\
-\
-            // Add totals as hidden fields for submission\
-            let formData = new FormData(document.getElementById('meatOrderForm'));\
-            formData.append('total_beef', totalBeef.toFixed(1));\
-            formData.append('total_pork', totalPork.toFixed(1));\
-            formData.append('Timestamp', new Date().toLocaleString());  // For display, but script uses server time\
-\
-            // Submit to Google Sheets\
-            const btn = document.getElementById('submitBtn');\
-            const messageDiv = document.getElementById('submitMessage');\
-            btn.disabled = true;\
-            btn.textContent = 'Submitting...';\
-            messageDiv.style.display = 'none';\
-\
-            fetch(WEB_APP_URL, \{\
-                method: 'POST',\
-                body: formData\
-            \})\
-            .then(response => response.json())\
-            .then(data => \{\
-                if (data.result === 'success') \{\
-                    showMessage(`Order submitted successfully! Added to row $\{data.row\}. Check your Google Sheet.`, 'success');\
-                    document.getElementById('meatOrderForm').reset();\
-                    document.getElementById('totalBeef').textContent = '0';\
-                    document.getElementById('totalPork').textContent = '0';\
-                \} else \{\
-                    showMessage(`Error: $\{data.error || 'Unknown error. Please try again.'\}`, 'error');\
-                \}\
-            \})\
-            .catch(error => \{\
-                showMessage(`Submission failed: $\{error.message\}. Please check your connection.`, 'error');\
-            \})\
-            .finally(() => \{\
-                btn.disabled = false;\
-                btn.textContent = 'Calculate & Submit Order';\
-            \});\
-        \}\
-\
-        function showMessage(msg, type) \{\
-            const messageDiv = document.getElementById('submitMessage');\
-            messageDiv.textContent = msg;\
-            messageDiv.className = type;\
-            messageDiv.style.display = 'block';\
-        \}\
-    </script>\
-\
-</body>\
-</html>}
+            font-weight: 600;\
+            color: #}

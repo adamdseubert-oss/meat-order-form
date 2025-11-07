@@ -5,587 +5,252 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meat Order Form</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-        }
-        h2 {
-            background-color: #e74c3c;
-            color: white;
-            padding: 10px;
-            margin-top: 25px;
-            border-radius: 5px;
-        }
-        h3 {
-            margin-top: 15px;
-            color: #555;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        .customer-info {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        .customer-info label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        .customer-info input, .customer-info textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        input[type="number"], select {
-            width: 80px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .flavor-group {
-            margin-left: 20px;
-            margin-top: 8px;
-        }
-        .flavor-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .flavor-item label {
-            flex: 1;
-            min-width: 180px;
-        }
-        .total-row {
-            font-weight: bold;
-            background-color: #f2f2f2;
-        }
-        .submit-btn {
-            display: block;
-            width: 200px;
-            margin: 30px auto;
-            padding: 12px;
-            font-size: 16px;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .submit-btn:hover {
-            background-color: #219653;
-        }
-        .submit-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        .note {
-            font-style: italic;
-            color: #777;
-            margin-top: 10px;
-            font-size: 0.9em;
-            text-align: center;
-        }
-        #submitMessage {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-        .success { background-color: #d4edda; color: #155724; }
-        .error { background-color: #f8d7da; color: #721c24; }
-        @media (max-width: 600px) {
-            .customer-info input, .customer-info textarea {
-                font-size: 14px;
-            }
-            input[type="number"], select {
-                width: 60px;
-            }
-        }
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 20px auto; padding: 20px; background: #f9f9f9; }
+        h1 { text-align: center; color: #444; }
+        h2 { background: #e74c3c; color: white; padding: 10px; border-radius: 5px; margin: 30px 0 15px; }
+        .customer-info { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #fff; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f2f2f2; font-weight: 600; }
+        input[type="number"] { width: 70px; padding: 6px; }
+        .price { text-align: right; font-weight: 600; color: #27ae60; }
+        .total-cost { text-align: right; font-weight: bold; }
+        .total-row { background: #e8f5e9 !important; font-weight: bold; }
+        .submit-btn { display: block; width: 240px; margin: 40px auto; padding: 14px; background: #27ae60; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; }
+        .submit-btn:hover { background: #219653; }
+        #submitMessage { text-align: center; padding: 15px; margin: 20px 0; border-radius: 6px; font-weight: bold; display: none; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flavor-group { margin-left: 20px; background: #f8f9fa; padding: 15px; border-radius: 6px; border: 1px solid #eee; }
+        .flavor-item { display: flex; align-items: center; margin: 8px 0; }
+        .flavor-item label { flex: 1; min-width: 180px; font-weight: 500; }
     </style>
 </head>
 <body>
 
     <h1>Meat Order Form</h1>
 
-    <form id="meatOrderForm" method="POST">
+    <form id="meatOrderForm">
+        <input type="hidden" name="SHEET_ID" value="1yFyGnadnN7HMY_XO2EZ5jy4gujvzA9aCTeOkvVnAuLg">
 
-        <!-- Paste your SHEET_ID here -->
-        <input type="hidden" name="SHEET_ID" value="YOUR_SHEET_ID_HERE">
-
-        <!-- CUSTOMER CONTACT INFO -->
+        <!-- CUSTOMER INFO -->
         <div class="customer-info">
             <h2>Customer Information</h2>
-            <label for="customer_name">Full Name *</label>
-            <input type="text" id="customer_name" name="customer_name" required placeholder="John Doe">
-
-            <label for="customer_email">Email *</label>
-            <input type="email" id="customer_email" name="customer_email" required placeholder="john@example.com">
-
-            <label for="customer_phone">Phone *</label>
-            <input type="tel" id="customer_phone" name="customer_phone" required placeholder="(555) 123-4567">
-
-            <label for="customer_address">Delivery / Pickup Address (Optional)</label>
-            <input type="text" id="customer_address" name="customer_address" placeholder="123 Main St, City, State">
-
-            <label for="customer_notes">Special Requests / Notes</label>
-            <textarea id="customer_notes" name="customer_notes" rows="3" placeholder="e.g., Prefer thicker cuts, no MSG, etc."></textarea>
+            <label>Full Name *</label>
+            <input type="text" name="customer_name" required>
+            <label>Email *</label>
+            <input type="email" name="customer_email" required>
+            <label>Phone *</label>
+            <input type="tel" name="customer_phone" required>
+            <label>Address</label>
+            <input type="text" name="customer_address">
+            <label>Notes</label>
+            <textarea name="customer_notes" rows="3"></textarea>
         </div>
 
         <!-- BEEF SECTION -->
         <h2>BEEF</h2>
-
         <table>
             <thead>
                 <tr>
                     <th>Item</th>
                     <th>Pack Size</th>
+                    <th>Price / Pack</th>
                     <th>Quantity</th>
+                    <th>Total Cost</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Ribeye</td>
-                    <td>1 lb each</td>
-                    <td><input type="number" min="0" value="0" name="beef_ribeye"></td>
-                </tr>
-                <tr>
-                    <td>New York Strip</td>
-                    <td>1 lb each</td>
-                    <td><input type="number" min="0" value="0" name="beef_ny_strip"></td>
-                </tr>
-                <tr>
-                    <td>Tenderloins</td>
-                    <td>0.5 lb each</td>
-                    <td><input type="number" min="0" value="0" name="beef_tenderloin"></td>
-                </tr>
-                <tr>
-                    <td>Chuck Roast</td>
-                    <td>3 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_chuck_roast"></td>
-                </tr>
-                <tr>
-                    <td>Burger</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_burger"></td>
-                </tr>
-                <tr>
-                    <td>Skirt Steak</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_skirt"></td>
-                </tr>
-                <tr>
-                    <td>Flank Steak</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_flank"></td>
-                </tr>
-                <tr>
-                    <td>Tri Tip</td>
-                    <td>3 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_tri_tip"></td>
-                </tr>
-                <tr>
-                    <td>Top Sirloin</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_top_sirloin"></td>
-                </tr>
-                <tr>
-                    <td>Short Rib</td>
-                    <td>2 pieces</td>
-                    <td><input type="number" min="0" value="0" name="beef_short_rib"></td>
-                </tr>
-                <tr>
-                    <td>Stew Meat</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_stew"></td>
-                </tr>
-                <tr>
-                    <td>Soup Meat</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_soup"></td>
-                </tr>
-                <tr>
-                    <td>Brisket</td>
-                    <td>10–12 lb</td>
-                    <td><input type="number" min="0" value="0" name="beef_brisket"></td>
-                </tr>
+                <tr><td>Ribeye</td><td>1 lb each</td><td class="price" data-price="16.99">$16.99</td><td><input type="number" min="0" value="0" name="beef_ribeye" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>New York Strip</td><td>1 lb each</td><td class="price" data-price="15.99">$15.99</td><td><input type="number" min="0" value="0" name="beef_ny_strip" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Tenderloins</td><td>0.5 lb each</td><td class="price" data-price="17.99">$17.99</td><td><input type="number" min="0" value="0" name="beef_tenderloin" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Chuck Roast</td><td>3 lb</td><td class="price" data-price="6.29">$6.29</td><td><input type="number" min="0" value="0" name="beef_chuck_roast" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Burger</td><td>1 lb</td><td class="price" data-price="5.99">$5.99</td><td><input type="number" min="0" value="0" name="beef_burger" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Skirt Steak</td><td>1 lb</td><td class="price" data-price="11.99">$11.99</td><td><input type="number" min="0" value="0" name="beef_skirt" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Flank Steak</td><td>1 lb</td><td class="price" data-price="11.99">$11.99</td><td><input type="number" min="0" value="0" name="beef_flank" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Tri Tip</td><td>3 lb</td><td class="price" data-price="11.99">$11.99</td><td><input type="number" min="0" value="0" name="beef_tri_tip" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Top Sirloin</td><td>2 lb (2 steaks)</td><td class="price" data-price="11.99">$11.99</td><td><input type="number" min="0" value="0" name="beef_top_sirloin" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Short Rib</td><td>1 lb</td><td class="price" data-price="6.99">$6.99</td><td><input type="number" min="0" value="0" name="beef_short_rib" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Stew Meat</td><td>1 lb</td><td class="price" data-price="6.99">$6.99</td><td><input type="number" min="0" value="0" name="beef_stew" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Soup Meat</td><td>1 lb</td><td class="price" data-price="6.99">$6.99</td><td><input type="number" min="0" value="0" name="beef_soup" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Brisket</td><td>5 lb</td><td class="price" data-price="6.99">$6.99</td><td><input type="number" min="0" value="0" name="beef_brisket" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
             </tbody>
         </table>
 
-        <h3>Jerky (0.5 lb package)</h3>
+        <!-- JERKY -->
+        <h3>Jerky (0.75 lb package)</h3>
         <div class="flavor-group">
-            <div class="flavor-item">
-                <label>Regular</label>
-                <input type="number" min="0" value="0" name="beef_jerky_regular">
-            </div>
-            <div class="flavor-item">
-                <label>Black Pepper (BP)</label>
-                <input type="number" min="0" value="0" name="beef_jerky_bp">
-            </div>
-            <div class="flavor-item">
-                <label>Sweet Teriyaki</label>
-                <input type="number" min="0" value="0" name="beef_jerky_sweet_ter">
-            </div>
-            <div class="flavor-item">
-                <label>Buffalo Chicken</label>
-                <input type="number" min="0" value="0" name="beef_jerky_buffalo">
-            </div>
-            <div class="flavor-item">
-                <label>Pork Jerky</label>
-                <input type="number" min="0" value="0" name="beef_jerky_pork">
-            </div>
+            <div class="flavor-item"><label>Regular</label><span class="price" data-price="18.99">$18.99</span><input type="number" min="0" value="0" name="beef_jerky_regular" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Black Pepper (BP)</label><span class="price" data-price="19.99">$19.99</span><input type="number" min="0" value="0" name="beef_jerky_bp" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Sweet Teriyaki</label><span class="price" data-price="19.99">$19.99</span><input type="number" min="0" value="0" name="beef_jerky_sweet_ter" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Buffalo Chicken</label><span class="price" data-price="19.99">$19.99</span><input type="number" min="0" value="0" name="beef_jerky_buffalo" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Pork Jerky</label><span class="price" data-price="19.99">$19.99</span><input type="number" min="0" value="0" name="beef_jerky_pork" onchange="calcFlavor(this)"></div>
         </div>
 
+        <!-- BEEF STICKS -->
         <h3>Beef Sticks (1 lb)</h3>
         <div class="flavor-group">
-            <div class="flavor-item">
-                <label>Regular</label>
-                <input type="number" min="0" value="0" name="beef_sticks_regular">
-            </div>
-            <div class="flavor-item">
-                <label>Habanero (Hab)</label>
-                <input type="number" min="0" value="0" name="beef_sticks_hab">
-            </div>
-            <div class="flavor-item">
-                <label>Habanero w/ Cheese</label>
-                <input type="number" min="0" value="0" name="beef_sticks_hab_cheese">
-            </div>
-            <div class="flavor-item">
-                <label>Sweet Teriyaki</label>
-                <input type="number" min="0" value="0" name="beef_sticks_sweet_ter">
-            </div>
-            <div class="flavor-item">
-                <label>Smoked Honey Mustard (SHM)</label>
-                <input type="number" min="0" value="0" name="beef_sticks_shm">
-            </div>
-            <div class="flavor-item">
-                <label>Cheese</label>
-                <input type="number" min="0" value="0" name="beef_sticks_cheese">
-            </div>
+            <div class="flavor-item"><label>Regular</label><span class="price" data-price="12.99">$12.99</span><input type="number" min="0" value="0" name="beef_sticks_regular" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Habanero</label><span class="price" data-price="13.99">$13.99</span><input type="number" min="0" value="0" name="beef_sticks_hab" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Habanero w/ Cheese</label><span class="price" data-price="13.99">$13.99</span><input type="number" min="0" value="0" name="beef_sticks_hab_cheese" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Sweet Teriyaki</label><span class="price" data-price="13.99">$13.99</span><input type="number" min="0" value="0" name="beef_sticks_sweet_ter" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Smoked Honey Mustard</label><span class="price" data-price="13.99">$13.99</span><input type="number" min="0" value="0" name="beef_sticks_shm" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Cheese</label><span class="price" data-price="13.99">$13.99</span><input type="number" min="0" value="0" name="beef_sticks_cheese" onchange="calcFlavor(this)"></div>
         </div>
 
+        <!-- HOT DOGS -->
         <h3>Hot Dogs (1 lb)</h3>
         <div class="flavor-group">
-            <div class="flavor-item">
-                <label>Regular</label>
-                <input type="number" min="0" value="0" name="hot_dogs_regular">
-            </div>
-            <div class="flavor-item">
-                <label>Cheddar</label>
-                <input type="number" min="0" value="0" name="hot_dogs_cheddar">
-            </div>
-            <div class="flavor-item">
-                <label>Cheddar Chili</label>
-                <input type="number" min="0" value="0" name="hot_dogs_cheddar_chili">
-            </div>
+            <div class="flavor-item"><label>Regular</label><span class="price" data-price="7.99">$7.99</span><input type="number" min="0" value="0" name="hot_dogs_regular" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Cheddar</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="hot_dogs_cheddar" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Cheddar Chili</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="hot_dogs_cheddar_chili" onchange="calcFlavor(this)"></div>
         </div>
 
+        <!-- SUMMER SAUSAGE -->
         <h3>Summer Sausage (1 lb)</h3>
         <div class="flavor-group">
-            <div class="flavor-item">
-                <label>Regular</label>
-                <input type="number" min="0" value="0" name="summer_sausage_regular">
-            </div>
-            <div class="flavor-item">
-                <label>Jalapeño</label>
-                <input type="number" min="0" value="0" name="summer_sausage_jal">
-            </div>
-            <div class="flavor-item">
-                <label>Cheddar</label>
-                <input type="number" min="0" value="0" name="summer_sausage_cheddar">
-            </div>
+            <div class="flavor-item"><label>Regular</label><span class="price" data-price="6.99">$6.99</span><input type="number" min="0" value="0" name="summer_sausage_regular" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Jalapeño</label><span class="price" data-price="7.99">$7.99</span><input type="number" min="0" value="0" name="summer_sausage_jal" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Cheddar</label><span class="price" data-price="7.99">$7.99</span><input type="number" min="0" value="0" name="summer_sausage_cheddar" onchange="calcFlavor(this)"></div>
         </div>
-
-        <table>
-            <tbody>
-                <tr class="total-row">
-                    <td colspan="2">Total Beef (lbs or packages)</td>
-                    <td id="totalBeef">0</td>
-                </tr>
-            </tbody>
-        </table>
 
         <!-- PORK SECTION -->
         <h2>PORK</h2>
-
         <table>
             <thead>
                 <tr>
                     <th>Item</th>
                     <th>Pack Size</th>
+                    <th>Price / Pack</th>
                     <th>Quantity</th>
+                    <th>Total Cost</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Chops</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_chops"></td>
-                </tr>
-                <tr>
-                    <td>Sausage</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_sausage"></td>
-                </tr>
-                <tr>
-                    <td>Links</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_links"></td>
-                </tr>
-                <tr>
-                    <td>Italian Sausage</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_italian"></td>
-                </tr>
-                <tr>
-                    <td>Brats</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_brats"></td>
-                </tr>
-                <tr>
-                    <td>Ribs</td>
-                    <td>3 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_ribs"></td>
-                </tr>
-                <tr>
-                    <td>Shoulder Roast</td>
-                    <td>3 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_shoulder"></td>
-                </tr>
-                <tr>
-                    <td>Pork Butt</td>
-                    <td>4 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_butt"></td>
-                </tr>
-                <tr>
-                    <td>Steaks</td>
-                    <td>1 lb</td>
-                    <td><input type="number" min="0" value="0" name="pork_steaks"></td>
-                </tr>
-                <tr>
-                    <td>Pork Tenderloins</td>
-                    <td>~1 lb each</td>
-                    <td><input type="number" min="0" value="0" name="pork_tenderloins"></td>
-                </tr>
+                <tr><td>Chops</td><td>0.75 lb each</td><td class="price" data-price="3.99">$3.99</td><td><input type="number" min="0" value="0" name="pork_chops" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Sausage</td><td>1 lb</td><td class="price" data-price="3.99">$3.99</td><td><input type="number" min="0" value="0" name="pork_sausage" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Links</td><td>1 lb</td><td class="price" data-price="4.99">$4.99</td><td><input type="number" min="0" value="0" name="pork_links" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Links Flavored</td><td>1 lb</td><td class="price" data-price="5.19">$5.19</td><td><input type="number" min="0" value="0" name="pork_links_flavored" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Italian Sausage</td><td>1 lb</td><td class="price" data-price="4.99">$4.99</td><td><input type="number" min="0" value="0" name="pork_italian" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Brats</td><td>1 lb</td><td class="price" data-price="4.99">$4.99</td><td><input type="number" min="0" value="0" name="pork_brats" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Brats Jal Cheddar</td><td>1 lb</td><td class="price" data-price="5.99">$5.99</td><td><input type="number" min="0" value="0" name="pork_brats_jal_cheddar" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Ribs</td><td>3 lb</td><td class="price" data-price="5.99">$5.99</td><td><input type="number" min="0" value="0" name="pork_ribs" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Shoulder Roast</td><td>3 lb</td><td class="price" data-price="3.99">$3.99</td><td><input type="number" min="0" value="0" name="pork_shoulder" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Pork Butt</td><td>4 lb</td><td class="price" data-price="3.99">$3.99</td><td><input type="number" min="0" value="0" name="pork_butt" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
+                <tr><td>Steaks</td><td>0.75 lb (2 per pack)</td><td class="price" data-price="3.99">$3.99</td><td><input type="number" min="0" value="0" name="pork_steaks" onchange="calcRow(this)"></td><td class="total-cost">$0.00</td></tr>
             </tbody>
         </table>
 
-        <h3>Links Flavored (1 lb)</h3>
-        <div class="flavor-group">
-            <div class="flavor-item">
-                <label>Regular</label>
-                <input type="number" min="0" value="0" name="pork_links_regular">
-            </div>
-        </div>
-
-        <h3>Brats Flavored (1 lb)</h3>
-        <div class="flavor-group">
-            <div class="flavor-item">
-                <label>Jalapeño Cheddar</label>
-                <input type="number" min="0" value="0" name="pork_brats_jal_cheddar">
-            </div>
-        </div>
-
+        <!-- BACON -->
         <h3>Bacon (1 lb)</h3>
         <div class="flavor-group">
-            <div class="flavor-item">
-                <label>Regular</label>
-                <input type="number" min="0" value="0" name="pork_bacon_regular">
-            </div>
-            <div class="flavor-item">
-                <label>Apple Cinnamon</label>
-                <input type="number" min="0" value="0" name="pork_bacon_apple_cinnamon">
-            </div>
-            <div class="flavor-item">
-                <label>Raspberry Chipotle</label>
-                <input type="number" min="0" value="0" name="pork_bacon_raspberry_chipotle">
-            </div>
-            <div class="flavor-item">
-                <label>Bourbon Pepper</label>
-                <input type="number" min="0" value="0" name="pork_bacon_bourbon_pepper">
-            </div>
-            <div class="flavor-item">
-                <label>Cajun</label>
-                <input type="number" min="0" value="0" name="pork_bacon_cajun">
-            </div>
-            <div class="flavor-item">
-                <label>Sweet Honey Brown Sugar</label>
-                <input type="number" min="0" value="0" name="pork_bacon_honey_brown">
-            </div>
-            <div class="flavor-item">
-                <label>Black Pepper</label>
-                <input type="number" min="0" value="0" name="pork_bacon_black_pepper">
-            </div>
+            <div class="flavor-item"><label>Regular</label><span class="price" data-price="7.99">$7.99</span><input type="number" min="0" value="0" name="pork_bacon_regular" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Apple Cinnamon</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="pork_bacon_apple_cinnamon" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Raspberry Chipotle</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="pork_bacon_raspberry_chipotle" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Bourbon Pepper</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="pork_bacon_bourbon_pepper" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Cajun</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="pork_bacon_cajun" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Sweet Honey Brown Sugar</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="pork_bacon_honey_brown" onchange="calcFlavor(this)"></div>
+            <div class="flavor-item"><label>Black Pepper</label><span class="price" data-price="8.99">$8.99</span><input type="number" min="0" value="0" name="pork_bacon_black_pepper" onchange="calcFlavor(this)"></div>
         </div>
 
+        <!-- GRAND TOTAL -->
         <table>
             <tbody>
                 <tr class="total-row">
-                    <td colspan="2">Total Pork (lbs or packages)</td>
-                    <td id="totalPork">0</td>
+                    <td colspan="4" style="text-align: right; font-weight: bold;">GRAND TOTAL:</td>
+                    <td id="grandTotal" class="total-cost">$0.00</td>
                 </tr>
             </tbody>
         </table>
 
         <button type="button" class="submit-btn" id="submitBtn" onclick="submitOrder()">Calculate & Submit Order</button>
         <div id="submitMessage"></div>
-        <p class="note">Submissions are saved to Google Sheets. You'll get a confirmation below.</p>
     </form>
 
     <script>
-        // Paste your WEB_APP_URL here
-        const WEB_APP_URL = 'YOUR_WEB_APP_URL_HERE';  // e.g., https://script.google.com/macros/s/[ID]/exec
-        const SHEET_ID = 'YOUR_SHEET_ID_HERE';  // Already in hidden input, but for reference
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyhQXnWaLHCur62-aKZztb7Gn51s73myd0b9MhG8IG-UTUWZjn5QLjy0E9D7fFtVfZoIA/exec';
+
+        function calcRow(input) {
+            const row = input.parentElement.parentElement;
+            const price = parseFloat(row.querySelector('.price').getAttribute('data-price'));
+            const qty = parseInt(input.value) || 0;
+            const totalCell = row.querySelector('.total-cost');
+            totalCell.textContent = `$${(price * qty).toFixed(2)}`;
+            updateGrandTotal();
+        }
+
+        function calcFlavor(input) {
+            const item = input.parentElement;
+            const price = parseFloat(item.querySelector('.price').getAttribute('data-price'));
+            const qty = parseInt(input.value) || 0;
+            const total = (price * qty).toFixed(2);
+            // Add total to grand total
+            updateGrandTotal();
+        }
+
+        function updateGrandTotal() {
+            let total = 0;
+            document.querySelectorAll('table .total-cost').forEach(cell => {
+                total += parseFloat(cell.textContent.replace('$', '')) || 0;
+            });
+            document.querySelectorAll('.flavor-group input[type="number"]').forEach(input => {
+                const item = input.parentElement;
+                const price = parseFloat(item.querySelector('.price').getAttribute('data-price'));
+                const qty = parseInt(input.value) || 0;
+                total += price * qty;
+            });
+            document.getElementById('grandTotal').textContent = `$${total.toFixed(2)}`;
+        }
 
         function submitOrder() {
-            // Validate required fields
-            const name = document.getElementById('customer_name').value.trim();
-            const email = document.getElementById('customer_email').value.trim();
-            const phone = document.getElementById('customer_phone').value.trim();
+            const name = document.querySelector('[name="customer_name"]').value.trim();
+            const email = document.querySelector('[name="customer_email"]').value.trim();
+            const phone = document.querySelector('[name="customer_phone"]').value.trim();
 
             if (!name || !email || !phone) {
-                showMessage('Please fill in your Name, Email, and Phone before submitting.', 'error');
+                showMessage('Please fill in Name, Email, and Phone.', 'error');
                 return;
             }
 
-            // Calculate totals
-            let totalBeef = 0;
-            let totalPork = 0;
+            const formData = new FormData(document.getElementById('meatOrderForm'));
+            formData.append('grand_total', document.getElementById('grandTotal').textContent);
 
-            // Beef calculations (same as before)
-            totalBeef += parseInt(document.querySelector('[name="beef_ribeye"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_ny_strip"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_tenderloin"]').value || 0) * 0.5;
-            totalBeef += parseInt(document.querySelector('[name="beef_chuck_roast"]').value || 0) * 3;
-            totalBeef += parseInt(document.querySelector('[name="beef_burger"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_skirt"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_flank"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_tri_tip"]').value || 0) * 3;
-            totalBeef += parseInt(document.querySelector('[name="beef_top_sirloin"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_short_rib"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_stew"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_soup"]').value || 0) * 1;
-            totalBeef += parseInt(document.querySelector('[name="beef_brisket"]').value || 0) * 11;
-
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_regular"]').value || 0) * 0.5);
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_bp"]').value || 0) * 0.5);
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_sweet_ter"]').value || 0) * 0.5);
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_buffalo"]').value || 0) * 0.5);
-            totalBeef += (parseInt(document.querySelector('[name="beef_jerky_pork"]').value || 0) * 0.5);
-
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_regular"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_hab"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_hab_cheese"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_sweet_ter"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_shm"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="beef_sticks_cheese"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="hot_dogs_regular"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="hot_dogs_cheddar"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="hot_dogs_cheddar_chili"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="summer_sausage_regular"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="summer_sausage_jal"]').value || 0);
-            totalBeef += parseInt(document.querySelector('[name="summer_sausage_cheddar"]').value || 0);
-
-            // Pork calculations
-            totalPork += parseInt(document.querySelector('[name="pork_chops"]').value || 0) * 1;
-            totalPork += parseInt(document.querySelector('[name="pork_sausage"]').value || 0) * 1;
-            totalPork += parseInt(document.querySelector('[name="pork_links"]').value || 0) * 1;
-            totalPork += parseInt(document.querySelector('[name="pork_italian"]').value || 0) * 1;
-            totalPork += parseInt(document.querySelector('[name="pork_brats"]').value || 0) * 1;
-            totalPork += parseInt(document.querySelector('[name="pork_ribs"]').value || 0) * 3;
-            totalPork += parseInt(document.querySelector('[name="pork_shoulder"]').value || 0) * 3;
-            totalPork += parseInt(document.querySelector('[name="pork_butt"]').value || 0) * 4;
-            totalPork += parseInt(document.querySelector('[name="pork_steaks"]').value || 0) * 1;
-            totalPork += parseInt(document.querySelector('[name="pork_tenderloins"]').value || 0) * 1;
-
-            totalPork += parseInt(document.querySelector('[name="pork_links_regular"]').value || 0);
-            totalPork += parseInt(document.querySelector('[name="pork_brats_jal_cheddar"]').value || 0);
-
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_regular"]').value || 0);
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_apple_cinnamon"]').value || 0);
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_raspberry_chipotle"]').value || 0);
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_bourbon_pepper"]').value || 0);
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_cajun"]').value || 0);
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_honey_brown"]').value || 0);
-            totalPork += parseInt(document.querySelector('[name="pork_bacon_black_pepper"]').value || 0);
-
-            // Update display
-            document.getElementById('totalBeef').textContent = totalBeef.toFixed(1) + ' lb';
-            document.getElementById('totalPork').textContent = totalPork.toFixed(1) + ' lb';
-
-            // Add totals as hidden fields for submission
-            let formData = new FormData(document.getElementById('meatOrderForm'));
-            formData.append('total_beef', totalBeef.toFixed(1));
-            formData.append('total_pork', totalPork.toFixed(1));
-            formData.append('Timestamp', new Date().toLocaleString());  // For display, but script uses server time
-
-            // Submit to Google Sheets
             const btn = document.getElementById('submitBtn');
-            const messageDiv = document.getElementById('submitMessage');
             btn.disabled = true;
             btn.textContent = 'Submitting...';
-            messageDiv.style.display = 'none';
 
-            fetch(WEB_APP_URL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === 'success') {
-                    showMessage(`Order submitted successfully! Added to row ${data.row}. Check your Google Sheet.`, 'success');
-                    document.getElementById('meatOrderForm').reset();
-                    document.getElementById('totalBeef').textContent = '0';
-                    document.getElementById('totalPork').textContent = '0';
-                } else {
-                    showMessage(`Error: ${data.error || 'Unknown error. Please try again.'}`, 'error');
-                }
-            })
-            .catch(error => {
-                showMessage(`Submission failed: ${error.message}. Please check your connection.`, 'error');
-            })
-            .finally(() => {
-                btn.disabled = false;
-                btn.textContent = 'Calculate & Submit Order';
-            });
+            fetch(WEB_APP_URL, { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        showMessage(`Order submitted! Total: ${document.getElementById('grandTotal').textContent}`, 'success');
+                    } else {
+                        showMessage('Error: ' + data.error, 'error');
+                    }
+                })
+                .catch(() => showMessage('Network error. Try again.', 'error'))
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.textContent = 'Calculate & Submit Order';
+                });
         }
 
         function showMessage(msg, type) {
-            const messageDiv = document.getElementById('submitMessage');
-            messageDiv.textContent = msg;
-            messageDiv.className = type;
-            messageDiv.style.display = 'block';
+            const div = document.getElementById('submitMessage');
+            div.textContent = msg;
+            div.className = type;
+            div.style.display = 'block';
         }
+
+        window.onload = () => {
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                if (input.value > 0) {
+                    input.onchange({ target: input });
+                }
+            });
+        };
     </script>
 
 </body>
